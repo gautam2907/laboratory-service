@@ -33,6 +33,12 @@ public class LaboratoryController {
         List<LabRecord> allRecords =  labRecordRepository.findAll();
         return new GenericResponse(1, "success", allRecords);
     }
+
+    @RequestMapping(value = "/add-lab-record", method = RequestMethod.POST)
+    public GenericResponse addLabRecord(@RequestBody LabRecord labRecord){
+	    labRecordRepository.save(labRecord);
+	    return new GenericResponse(1, "success", null);
+    }
 	
 	
 	
