@@ -7,5 +7,6 @@ import com.example.laboratoryservice.model.LabRecord;
 
 
 public interface LabRecordRepository extends JpaRepository<LabRecord, String> {
-
+	
+	LabRecord findByTestId(String testId);
 }
