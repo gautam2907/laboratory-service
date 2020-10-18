@@ -1,6 +1,8 @@
 package com.example.laboratoryservice.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +38,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.laboratoryservice.repository.TreatmentHistoryRepository;
 
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping("/laboratory")
 public class LaboratoryController {
@@ -78,8 +79,7 @@ public class LaboratoryController {
 
     @RequestMapping(value = "/add-lab-record", method = RequestMethod.POST)
     public GenericResponse addLabRecord(@RequestBody LabRecord labRecord){
-	    labRecordRepository.save(labRecord);
-	    return new GenericResponse(1, "success", null);
+	    return new GenericResponse(1, "success", labRecordRepository.save(labRecord));
     }
 	
 	
@@ -135,6 +135,17 @@ public class LaboratoryController {
         }
 
 
+    }
+
+    @GetMapping("/sample")
+    public LabRecord getSample(){
+	    return new LabRecord("test-id",
+                "treatment-id",
+                "test-name",
+                "physician-id",
+                "patient-id",
+                new Date(10, 10, 10),
+                new Time(10, 10, 10));
     }
 	
 }
