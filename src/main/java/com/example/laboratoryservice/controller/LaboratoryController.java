@@ -9,7 +9,7 @@ import java.util.Optional;
 import com.example.laboratoryservice.model.ImageModel;
 import com.example.laboratoryservice.repository.ImageRepository;
 import com.example.laboratoryservice.util.ImageUtils;
-import com.netflix.discovery.converters.Auto;
+//import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
