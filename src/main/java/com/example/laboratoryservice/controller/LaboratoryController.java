@@ -37,7 +37,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.laboratoryservice.repository.TreatmentHistoryRepository;
 
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/laboratory")
 public class LaboratoryController {
@@ -108,31 +108,37 @@ public class LaboratoryController {
 
     //image upload
     @RequestMapping(value = "/image/upload", method = RequestMethod.POST)
-    public GenericResponse uploadImage(@RequestParam("file") MultipartFile file) {
+    public GenericResponse uploadImage(@RequestParam("file") MultipartFile file, @RequestParam("testId") String testId) {
+    	
         try{
             ImageModel img = new ImageModel(file.getOriginalFilename(), file.getContentType(),
-                    ImageUtils.compressBytes(file.getBytes()));
+                    ImageUtils.compressBytes(file.getBytes()), testId);
 
             return new GenericResponse(1, "success", imageRepository.save(img));
         }catch (Exception e){
             e.printStackTrace();
             return new GenericResponse(0, "exception occurred", null);
         }
-
+        
     }
 
     //image retrieve
     @RequestMapping("/image/get/{labTestId}")
-    public GenericResponse getImage(@PathVariable("labTestId") String id) {
-        final Optional<ImageModel> retrievedImage = imageRepository.findById(id);
-        try{
+    public ImageModel getImage(@PathVariable("labTestId") String testId) {
+    	System.out.println("jksadbhasd" + testId);
+    	System.out.println("asdhkbasadsjadssabhasdsayusadgyugasdgdsau");
+        final Optional<ImageModel> retrievedImage = imageRepository.findByTestId(testId);
+        System.out.println("nsjbdsad" + retrievedImage.get().getName());
+        System.out.println("Pic Byte"  + retrievedImage.get().getPicByte());
+        
+//        try{
             ImageModel img = new ImageModel(retrievedImage.get().getName(), retrievedImage.get().getType(),
-                    ImageUtils.decompressBytes(retrievedImage.get().getPicByte()));
-            return new GenericResponse(1, "success", img);
-        }catch (Exception e){
-            e.printStackTrace();
-            return new GenericResponse(0, "exception: " + e.getMessage(), null);
-        }
+                    ImageUtils.decompressBytes(retrievedImage.get().getPicByte()), retrievedImage.get().getTestId());
+            return img;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return new GenericResponse(0, "exception: " + e.getMessage(), null);
+//        }
 
 
     }
