@@ -13,13 +13,14 @@ public class LabRecordPast {
 	@Id
 	@Column(name="test_id")
 	private String testId;
+	@Column(name="treatment_id")
+	private String treatmentId;
 	@Column(name="test_name")
-	private String test_name;
+	private String testName;
 	@Column(name="physician_id")
 	private String physicianId;
 	@Column(name="patient_id")
 	private String patientId;
-	private String tests;
 	@Column(name="test_results")
 	private String testResults;	
 	private Date date;
@@ -29,18 +30,20 @@ public class LabRecordPast {
 	public LabRecordPast() {
 	}
 
+	
 
-	public LabRecordPast(String testId, String test_name, String physicianId, String patientId, String tests,
+	public LabRecordPast(String testId, String treatmentId, String testName, String physicianId, String patientId,
 			String testResults, Date date, Time time) {
 		super();
 		this.testId = testId;
-		this.test_name = test_name;
+		this.treatmentId = treatmentId;
+		this.testName = testName;
 		this.physicianId = physicianId;
 		this.patientId = patientId;
-		this.tests = tests;
 		this.testResults = testResults;
 		this.date = date;
 		this.time = time;
+		
 	}
 
 
@@ -52,15 +55,24 @@ public class LabRecordPast {
 	public void setTestId(String testId) {
 		this.testId = testId;
 	}
-
-
-	public String getTest_name() {
-		return test_name;
+	
+	public String getTreatmentId() {
+		return treatmentId;
 	}
 
 
-	public void setTest_name(String test_name) {
-		this.test_name = test_name;
+	public void setTreatmentId(String treatmentId) {
+		this.treatmentId = treatmentId;
+	}
+
+
+	public String getTestName() {
+		return testName;
+	}
+
+
+	public void setTestName(String testName) {
+		this.testName = testName;
 	}
 
 
@@ -81,16 +93,6 @@ public class LabRecordPast {
 
 	public void setPatientId(String patientId) {
 		this.patientId = patientId;
-	}
-
-
-	public String getTests() {
-		return tests;
-	}
-
-
-	public void setTests(String tests) {
-		this.tests = tests;
 	}
 
 
